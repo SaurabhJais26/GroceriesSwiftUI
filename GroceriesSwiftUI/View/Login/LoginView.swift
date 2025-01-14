@@ -55,7 +55,7 @@ struct LoginView: View {
                 .padding(.bottom, .screenWidth * 0.03)
                 
                 RoundButton(title: "Log In") {
-                    
+                    loginViewModel.serviceCallLogin()
                 }
                 .padding(.bottom, .screenWidth * 0.05)
                 
@@ -92,6 +92,9 @@ struct LoginView: View {
             }
             .padding(.top, .topInsets)
             .padding(.horizontal)
+        }
+        .alert(isPresented: $loginViewModel.showError) {
+            Alert(title: Text(Globs.AppName), message: Text(loginViewModel.errorMessage), dismissButton: .default(Text("OK")) )
         }
         .background(Color.white)
         .navigationTitle("")
