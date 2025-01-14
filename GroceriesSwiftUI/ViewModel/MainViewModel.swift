@@ -17,6 +17,14 @@ class MainViewModel: ObservableObject {
     @Published var showError = false
     @Published var errorMessage = ""
     
+    init() {
+        
+        #if DEBUG
+        textEmail = "test@gmail.com"
+        textPassword = "123456"
+        #endif
+    }
+    
     // MARK: Service Call
     
     func serviceCallLogin() {
@@ -32,7 +40,7 @@ class MainViewModel: ObservableObject {
             self.showError = true
             return
         }
-        ServiceCall.post(parameter: ["email": textEmail, "password": textPassword], path: Globs.SV_LOGIN) { responseObj in
+        ServiceCall.post(parameter: ["email": textEmail, "password": textPassword, "device_token": ""], path: Globs.SV_LOGIN) { responseObj in
             if let response = responseObj as? NSDictionary {
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
                     print(response)
@@ -48,6 +56,11 @@ class MainViewModel: ObservableObject {
             self.errorMessage = error?.localizedDescription ?? "Failed"
         }
 
+    }
+    
+    
+    func serviceCallSignUp() {
+        
     }
 }
 

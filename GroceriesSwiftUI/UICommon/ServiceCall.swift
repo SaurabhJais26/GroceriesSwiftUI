@@ -44,6 +44,8 @@ class ServiceCall {
                         do {
                             let jsonDictionary = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
                             
+                            debugPrint("response: " , jsonDictionary)
+                            
                             DispatchQueue.main.async {
                                 withSuccess(jsonDictionary)
                             }
