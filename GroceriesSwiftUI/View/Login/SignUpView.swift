@@ -45,7 +45,7 @@ struct SignUpView: View {
                         .padding(.bottom, .screenWidth * 0.1)
                     
                     
-                    LineTextField( title: "Username", placholder: "Enter your username", txt: $mainVM.textEmail)
+                    LineTextField( title: "Username", placholder: "Enter your username", txt: $mainVM.textUsername)
                         .padding(.bottom, .screenWidth * 0.07)
                     
                     LineTextField( title: "Email", placholder: "Enter your email address", txt: $mainVM.textEmail, keyboardType: .emailAddress)
@@ -82,7 +82,7 @@ struct SignUpView: View {
                     }
                     
                     
-                    RoundButton(title: "Sing Up") {
+                    RoundButton(title: "Sign Up") {
                         mainVM.serviceCallSignUp()
                     }
                     .padding(.bottom, .screenWidth * 0.05)
@@ -145,5 +145,8 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView()
+    NavigationView {
+        SignUpView()
+    }
+    
 }
