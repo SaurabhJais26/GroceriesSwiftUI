@@ -46,15 +46,73 @@ struct HomeView: View {
                 }
                 .padding(.horizontal, 20)
                 
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 15) {
+                        ForEach (0...5, id: \.self) {
+                            index in
+                            
+                            ProductCell {
+                                
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 4)
+                }
+                
                 SectionTitleAll(title: "Best Selling", titleAll: "See All") {
                     
                 }
                 .padding(.horizontal, 20)
                 
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 15) {
+                        ForEach (0...5, id: \.self) {
+                            index in
+                            
+                            ProductCell {
+                                
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 4)
+                }
+                
                 SectionTitleAll(title: "Groceries", titleAll: "See All") {
                     
                 }
                 .padding(.horizontal, 20)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 15) {
+                        ForEach (0...5, id: \.self) {
+                            index in
+                            
+                            CategoryCell(color: Color(hex: "F8A44C")) {
+                                
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 4)
+                }
+                .padding(.bottom, 8)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 15) {
+                        ForEach (0...5, id: \.self) {
+                            index in
+                            
+                            ProductCell {
+                                
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 4)
+                }
+                .padding(.bottom, 15)
             }
         }
         .ignoresSafeArea()
