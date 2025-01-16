@@ -17,8 +17,8 @@ class MainViewModel: ObservableObject {
     
     @Published var showError = false
     @Published var errorMessage = ""
-    
     @Published var isUserLogin: Bool = false
+    
     @Published var userObj: UserModel = UserModel(dict: [:])
     
     init() {
