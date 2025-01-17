@@ -36,7 +36,7 @@ struct ProductCell: View {
             Spacer()
             
             HStack {
-                Text("₹\(pObj.offerPrice ?? pObj.price, specifier: "%.2f")")
+                Text("$\(pObj.offerPrice ?? pObj.price, specifier: "%.2f")")
                     .font(.customfont(.semibold, fontSize: 16))
                     .foregroundColor(.primaryText)
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)

@@ -52,7 +52,7 @@ class MainViewModel: ObservableObject {
             self.showError = true
             return
         }
-        ServiceCall.post(parameter: ["email": textEmail, "password": textPassword, "device_token": ""], path: Globs.SV_LOGIN) { responseObj in
+        ServiceCall.post(parameter: ["email": textEmail, "password": textPassword, "dervice_token": ""], path: Globs.SV_LOGIN) { responseObj in
             if let response = responseObj as? NSDictionary {
                 if response.value(forKey: KKey.status) as? String ?? "" == "1" {
                     print(response)
