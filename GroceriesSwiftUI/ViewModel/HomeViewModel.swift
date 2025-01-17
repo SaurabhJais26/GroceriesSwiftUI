@@ -20,6 +20,10 @@ class HomeViewModel: ObservableObject {
     @Published var bestArr: [ProductModel] = []
     @Published var listArr: [ProductModel] = []
     @Published var typeArr: [TypeModel] = []
+    
+    init() {
+        serviceCallList()
+    }
     // MARK: - ServiceCall
     
     func serviceCallList() {
