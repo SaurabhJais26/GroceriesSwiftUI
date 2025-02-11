@@ -50,7 +50,7 @@ class ProductDetailViewModel: ObservableObject {
         serviceCallDetail()
     }
     
-    //MARK: ServiceCall
+//    MARK: - ServiceCall
     
     func serviceCallDetail(){
         ServiceCall.post(parameter: ["prod_id": self.pObj.prodId ], path: Globs.SV_PRODUCT_DETAIL, isToken: true ) { responseObj in
