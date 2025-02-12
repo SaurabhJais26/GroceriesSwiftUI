@@ -38,7 +38,7 @@ struct ProductDetailView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                         
                         Button {
-                            detailVM.isFav = !detailVM.isFav
+                            detailVM.serviceCallAddRemoveFav()
                         } label: {
                             Image( detailVM.isFav ? "favorite" : "fav")
                                 .resizable()
@@ -97,9 +97,9 @@ struct ProductDetailView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 20)
                 
-                VStack {
-                    HStack {
-                        Text("Product Details")
+                VStack{
+                    HStack{
+                        Text("Product Detail")
                             .font(.customfont(.semibold, fontSize: 16))
                             .foregroundColor(.primaryText)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -111,6 +111,7 @@ struct ProductDetailView: View {
                         } label: {
                             Image( detailVM.isShowDetail ? "detail_open" : "next")
                                 .resizable()
+                                .renderingMode(.template)
                                 .scaledToFit()
                                 .frame(width: 15, height: 15)
                                 .padding(15)
@@ -123,11 +124,12 @@ struct ProductDetailView: View {
                             .font(.customfont(.medium, fontSize: 13))
                             .foregroundColor(.secondaryText)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.bottom, 8)
+                            .padding(.bottom , 8)
                     }
                     
                     Divider()
                 }
+                
                 .padding(.horizontal, 20)
                 
                 VStack {
@@ -151,6 +153,7 @@ struct ProductDetailView: View {
                         } label: {
                             Image( detailVM.isShowNutrition ? "detail_open" : "next")
                                 .resizable()
+                                .renderingMode(.template)
                                 .scaledToFit()
                                 .frame(width: 15, height: 15)
                                 .padding(15)
@@ -159,16 +162,67 @@ struct ProductDetailView: View {
                         
                     }
                     if(detailVM.isShowNutrition) {
-                        Text(detailVM.pObj.detail)
-                            .font(.customfont(.medium, fontSize: 13))
-                            .foregroundColor(.secondaryText)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.bottom, 8)
+                        LazyVStack {
+                            ForEach(detailVM.nutritionArr, id: \.id) { nObj in
+                                HStack {
+                                    Text(nObj.nutritionName)
+                                        .font(.customfont(.semibold, fontSize: 15))
+                                        .foregroundColor(.secondaryText)
+                                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                    
+                                    Text(nObj.nutritionValue)
+                                        .font(.customfont(.semibold, fontSize: 15))
+                                        .foregroundColor(.primaryText)
+                                }
+                                
+                                Divider()
+                            }
+                            .padding(.vertical, 0)
+                        }
+                        .padding(.horizontal, 10)
                     }
                     
                     Divider()
                 }
                 .padding(.horizontal, 20)
+                
+                VStack {
+                    HStack {
+                        Text("Review")
+                            .font(.customfont(.semibold, fontSize: 16))
+                            .foregroundColor(.primaryText)
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                        
+                        HStack(spacing: 2) {
+                            ForEach(1...5, id: \.self) { index in
+                                Image(systemName: "star.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(Color.orange)
+                                    .frame(width: 15, height: 15)
+                            }
+                        }
+                        
+                        Button {
+                            
+                        } label: {
+                            Image("next")
+                                .resizable()
+                                .renderingMode(.template)
+                                .scaledToFit()
+                                .frame(width: 15, height: 15)
+                                .padding(15)
+                        }
+                        .foregroundColor(Color.primaryText)
+                        
+                    }
+                }
+                .padding(.horizontal, 20)
+                
+                RoundButton(title: "Add To Basket") {
+                    
+                }
+                .padding(20)
             }
             
             VStack {
@@ -195,6 +249,9 @@ struct ProductDetailView: View {
             }
             .padding(.top, .topInsets)
             .padding(.horizontal, 20)
+        }
+        .alert(isPresented: $detailVM.showError) {
+            Alert(title: Text(Globs.AppName), message: Text(detailVM.errorMessage)  , dismissButton: .default(Text("Ok"))  )
         }
         .navigationTitle("")
         .navigationBarBackButtonHidden(true)
