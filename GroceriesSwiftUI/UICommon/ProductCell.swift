@@ -10,6 +10,8 @@ import SDWebImageSwiftUI
 
 struct ProductCell: View {
     @State var pObj: ProductModel = ProductModel(dict: [:])
+    @State var width:Double = 180.0
+    
     var didAddToCart: ( ()->() )?
     
     var body: some View {

@@ -17,7 +17,7 @@ struct MainTabView: View {
                 }else if(homeViewModel.selectedTab == 1) {
                     ExploreView()
                 }else if(homeViewModel.selectedTab == 2) {
-                    ExploreView()
+                    MyCartView()
                 }else if(homeViewModel.selectedTab == 3) {
                     FavouriteView()
                 }else if(homeViewModel.selectedTab == 4) {
@@ -80,5 +80,7 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView()
+    NavigationView {
+        MainTabView()
+    }
 }

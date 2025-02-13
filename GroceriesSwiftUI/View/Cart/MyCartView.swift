@@ -1,0 +1,95 @@
+//
+//  MyCartView.swift
+//  GroceriesSwiftUI
+//
+//  Created by Saurabh Jaiswal on 13/02/25.
+//
+
+import SwiftUI
+
+struct MyCartView: View {
+    @StateObject var cartVM = CartViewModel.shared
+    
+    var body: some View {
+        ZStack {
+            if(cartVM.listArr.count <= 0) {
+                Text("Your cart is Empty")
+                    .font(.customfont(.bold, fontSize: 20))
+            }
+            ScrollView {
+                LazyVStack {
+                    ForEach(cartVM.listArr, id: \.id) { cObj in
+                        CartItemRow(cObj: cObj)
+                    }
+                    .padding(.vertical, 8)
+                }
+                .padding(20)
+                .padding(.top, .topInsets + 46)
+                .padding(.bottom, .bottomInsets + 60)
+            }
+            
+            
+            VStack {
+                HStack{
+                    
+                    Spacer()
+                    
+                    Text("My Cart")
+                        .font(.customfont(.bold, fontSize: 20))
+                        .frame(height: 46)
+                    Spacer()
+                }
+                .padding(.top, .topInsets)
+                .background(Color.white)
+                .shadow(color: Color.black.opacity(0.2), radius: 2)
+                Spacer()
+                
+                if(cartVM.listArr.count > 0) {
+                    Button {
+                        
+                    } label: {
+                        ZStack {
+                            Text("Check Out")
+                                .font(.customfont(.semibold, fontSize: 18))
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
+                            
+                            HStack {
+                                Spacer()
+                                Text("$\(cartVM.total)")
+                                    .font(.customfont(.semibold, fontSize: 12))
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .background(Color.darkGray.opacity(0.2))
+                                    .cornerRadius(5)
+                            }
+                            .padding(.trailing)
+                            
+                            
+                        }
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, maxHeight: 60)
+                    .background(Color.primaryApp)
+                    .cornerRadius(20)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, .bottomInsets + 80)
+                        
+                }
+            }
+        }
+        .onAppear {
+            cartVM.serviceCallList()
+        }
+        .alert(isPresented: $cartVM.showError) {
+            Alert(title: Text(Globs.AppName), message: Text(cartVM.errorMessage)  , dismissButton: .default(Text("Ok"))  )
+        }
+        .ignoresSafeArea()
+    }
+}
+
+#Preview {
+    NavigationView {
+        MyCartView()
+    }
+}

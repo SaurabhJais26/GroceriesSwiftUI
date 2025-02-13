@@ -52,7 +52,10 @@ struct HomeView: View {
                             pObj in
             
                             ProductCell(pObj: pObj, didAddToCart: {
-                                
+                                CartViewModel.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { isDone, message in
+                                    self.homeVM.errorMessage = message
+                                    self.homeVM.showError = true
+                                }
                             })
                         }
                     }
@@ -71,7 +74,10 @@ struct HomeView: View {
                             pObj in
             
                             ProductCell(pObj: pObj, didAddToCart: {
-                                
+                                CartViewModel.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { isDone, message in
+                                    self.homeVM.errorMessage = message
+                                    self.homeVM.showError = true
+                                }
                             })
                         }
                     }
@@ -105,7 +111,10 @@ struct HomeView: View {
                             pObj in
             
                             ProductCell(pObj: pObj, didAddToCart: {
-                                
+                                CartViewModel.serviceCallAddToCart(prodId: pObj.prodId, qty: 1) { isDone, message in
+                                    self.homeVM.errorMessage = message
+                                    self.homeVM.showError = true
+                                }
                             })
                         }
                     }
@@ -115,10 +124,15 @@ struct HomeView: View {
                 .padding(.bottom, 30)
             }
         }
+        .alert(isPresented: $homeVM.showError) {
+            Alert(title: Text(Globs.AppName), message: Text(homeVM.errorMessage)  , dismissButton: .default(Text("Ok"))  )
+        }
         .ignoresSafeArea()
     }
 }
 
 #Preview {
-    HomeView()
+    NavigationView {
+        HomeView()
+    }
 }
